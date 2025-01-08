@@ -1,8 +1,13 @@
 using System.Text;
+using dotenv.net;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
+DotEnv.Load();
+
 var builder = WebApplication.CreateBuilder(args);
+
+var ENV = DotEnv.Read();
 
 // Add services to the container
 builder.Services.AddControllers();
@@ -21,9 +26,9 @@ builder.Services.AddAuthentication(options =>
         ValidateAudience = true,
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
-        ValidIssuer = "localtest", // Replace with your issuer
-        ValidAudience = "testlocal", // Replace with your audience
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("fd55762c9e0864c7915fad1bac627d57")) // Replace with your own sign key
+        ValidIssuer = ENV["ISSUER"], // Replace with your issuer
+        ValidAudience = ENV["AUDIENCE"], // Replace with your audience
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(ENV["SECRET_KEY"])) // Replace with your own sign key
     };
 });
 

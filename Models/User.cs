@@ -8,3 +8,4 @@ namespace UserManagement.Models
         public string Role { get; set; }
     }
 }
+    

@@ -40,3 +40,4 @@ C:\Users\15997297\Documents\C#\WebAPI\bin\Debug\net9.0\Microsoft.IdentityModel.P
 C:\Users\15997297\Documents\C#\WebAPI\bin\Debug\net9.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\15997297\Documents\C#\WebAPI\bin\Debug\net9.0\System.IdentityModel.Tokens.Jwt.dll
 C:\Users\15997297\Documents\C#\WebAPI\bin\Debug\net9.0\dotenv.net.dll
+C:\Users\15997297\Documents\C#\WebAPI\obj\Debug\net9.0\WebAPI.sourcelink.json

@@ -1,3 +1,4 @@
+using dotenv.net;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -8,9 +9,12 @@ using System.Text;
 [Route("api/[controller]")]
 public class AuthController : ControllerBase
 {
+    
     [HttpPost("login")]
     public IActionResult Login([FromBody] LoginRequest request)
     {
+        
+        var ENV = DotEnv.Read();
         // Replace this with your actual user validation logic
         if (request.user_name == "admin" && request.pass == "password")
         {
@@ -25,8 +29,8 @@ public class AuthController : ControllerBase
                     new Claim(ClaimTypes.Role, "Admin") 
                 }),
                 Expires = DateTime.UtcNow.AddHours(1),
-                Issuer = "localtest",
-                Audience = "testlocal",
+                Issuer = ENV["ISSUER"],
+                Audience = ENV["AUDIENCE"],
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
 
@@ -55,6 +59,8 @@ public class AuthController : ControllerBase
 
     public bool ValidateToken(string token)
     {
+        
+        var ENV = DotEnv.Read();
         var tokenHandler = new JwtSecurityTokenHandler();
         var key = Encoding.UTF8.GetBytes("fd55762c9e0864c7915fad1bac627d57");
 
@@ -66,8 +72,8 @@ public class AuthController : ControllerBase
                 ValidateAudience = true,
                 ValidateLifetime = true,
                 ValidateIssuerSigningKey = true,
-                ValidIssuer = "localtest",
-                ValidAudience = "testlocal",
+                ValidIssuer = ENV["ISSUER"],
+                ValidAudience = ENV["AUDIENCE"],
                 IssuerSigningKey = new SymmetricSecurityKey(key),
                 ClockSkew = TimeSpan.Zero
             };
