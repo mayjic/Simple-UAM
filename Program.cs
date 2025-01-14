@@ -45,12 +45,13 @@ builder.Services.AddSwaggerGen(c =>
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Name = "Authorization",
-        Type = SecuritySchemeType.ApiKey,
+        Type = SecuritySchemeType.Http,
         Scheme = "Bearer",
         BearerFormat = "JWT",
         In = ParameterLocation.Header,
-        Description = "Enter 'Bearer' followed by your token in the text input below. Example: 'Bearer abc123'"
+        Description = "Enter 'Bearer' [space] and then your valid JWT token. Example: 'Bearer [token]'"
     });
+
     c.AddSecurityRequirement(new OpenApiSecurityRequirement
     {
         {
@@ -67,7 +68,6 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
-
 // Add authorization
 builder.Services.AddAuthorization();
 
@@ -81,7 +81,6 @@ if (app.Environment.IsDevelopment())
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API v1");
     });
 }
-
 app.UseRouting();
 app.UseAuthentication(); // Authenticate the user
 app.UseAuthorization();  // Check permissions
