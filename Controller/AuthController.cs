@@ -57,7 +57,7 @@ public class AuthController : ControllerBase
         return Unauthorized("Token is invalid");
     }
 
-    public bool ValidateToken(string token)
+    private bool ValidateToken(string token)
     {
         
         var ENV = DotEnv.Read();
